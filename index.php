@@ -1,3 +1,3 @@
 <?php
-echo "cambio sin asistente"
+echo "prueba 2"
 ?>
