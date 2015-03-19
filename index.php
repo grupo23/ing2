@@ -1,3 +1,3 @@
 <?php
-echo "ok creo que ya le atine"
+echo "prueba 1"
 ?>
