@@ -1,3 +1,3 @@
 <?php
-echo "intento de cambio de nombre"
+echo "prueba 3 desde la cuenta 1"
 ?>
