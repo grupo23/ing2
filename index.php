@@ -1,3 +1,3 @@
 <?php
-echo "mostrando a miguel"
+echo "mostrando a sonia"
 ?>
