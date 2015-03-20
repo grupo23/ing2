@@ -1,3 +1,3 @@
 <?php
-echo "prueba 3 desde la cuenta 1"
+echo "mostrando a miguel"
 ?>
