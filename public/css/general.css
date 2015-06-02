@@ -170,3 +170,9 @@ a, a:hover, a:active, .smallText .button
 {
 	display: none;
 }
+
+.fancyForm: button{
+ padding: 10px;
+ display:block;
+ width: 108%;
+}

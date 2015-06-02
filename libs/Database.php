@@ -50,6 +50,7 @@ Class Database extends PDO
 	*/
 	public function update($table,$data,$where)
 	{
+
 		ksort($data);
 		$fieldDetails = NULL;
 		foreach ($data as $key => $values)

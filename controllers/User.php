@@ -5,6 +5,8 @@
 		{
 			parent:: __construct();
 		}
+	
+
 		public function signUp()
 		{
 			//name, username, email, password
@@ -29,6 +31,7 @@
 			}
 			/*?><script> document.location = "<?php echo URL; ?>";</script><?php*/
 		}
+
 		public function signIn()
 		{
 			
@@ -61,6 +64,25 @@
 			}
 			
 		}
+
+		public function update()
+		{
+
+              if(isset($_POST["idUsuario"]) && isset($_POST["mail"]) && isset($_POST["password"]) && 
+				isset($_POST["nomyap"]) && isset($_POST["dni"]) &&
+		        isset($_POST["direccion"]) && isset($_POST["telefono"]))
+                {
+                	$data["idUsuario"] = $_POST["idUsuario"];
+          	      $data["password"] = $_POST["password"];
+			      $data["nomyap"] = $_POST["nomyap"];
+			      $data["dni"] = $_POST["dni"];
+			      $data["direccion"] = $_POST["direccion"];
+			      $data["telefono"] = $_POST["telefono"]; 
+			      $this->model->update($data);
+			      ?><script> document.location = "<?php echo URL; ?>";</script><?php
+			   }
+		}
+
 		function createSession($mail,$id,$tipo)
 		{
 			Session::setValue('MAIL',$mail);

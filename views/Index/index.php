@@ -101,6 +101,7 @@
         
         signIn();
       });
+      
 
   	});
 
@@ -108,17 +109,19 @@
     {
       var mail = $('form[name=signUp] input[name=mail]')[0].value;
       var password = $('form[name=signUp] input[name=password]')[0].value;
-      var nomyap = $('form[name=signUp] input[name=nomyap]')[0].value;
+      var nomyap = $('form[name=signUp] input[name=nomyap]').value;
       var dni = $('form[name=signUp] input[name=dni]')[0].value;
       var direccion = $('form[name=signUp] input[name=direccion]')[0].value;
-      var tenefono = $('form[name=signUp] input[name=telefono]')[0].value;
+      var telefono = $('form[name=signUp] input[name=telefono]')[0].value;
 
       $.ajax({
           type: "POST",
           url: "<?php echo URL; ?>User/signUp",
-          data: {mail: mail, password: password, nomyap: nomyap, dni: dni, direccion: direccion, tenefono:telefono}
+          data: {mail: mail, password: password, nomyap: nomyap, dni: dni, direccion: direccion, telefono:telefono}
       });
     }
+
+
     function signIn()
     {
       
@@ -141,13 +144,51 @@
       <?php 
       if(Session::getValue('TIPO')==1)//opciones para usuario logueado
       {
+        //print_r($this->userData());
           ?>
           <div class="formWrapper">
             <div class="botoncerrar">
               <span class="correo"><?php echo Session::getValue('MAIL'); ?></span>
               <button id="closeSessionBtn">Cerrar Session</button>
+              <div class="formTitle">Actualizar</div>
+              <form name="formulariomodificar" action="<?php echo URL; ?>User/update" method="post">
+                  <input name="idUsuario" type="hidden" value="<?php echo Session::getValue('ID'); ?>" required/>
+                  <input name="mail" type="email" placeholder="correo electronico" required/>
+                  <input name="password" type="password" placeholder="Password" required/>
+                  <input name="nomyap" type="text" placeholder="nombre y apellido" required/>
+                  <input name="dni" type="number" placeholder="Dni" required/>
+                  <input name="direccion" type="text" placeholder="Direccion" required/>
+                  <input name="telefono" type="text" placeholder="Telefono" required/>
+                  <input id="botonactualizar" name="botonactualizar" type="submit" value="actualizar" required/>
+                  <input name="botondardebaja" type="submit" value="eliminar" required/>
+              </form>
+              
             </div>
           </div>
+          <script type="text/javascript">
+    $('#botonactualizar').click(function(e)
+      {
+        update();
+      });
+    function update();
+    {
+      var idUsuario= $('form[name=formulariomodificar] input[name=idUsuario]')[0].value;
+      var mail = $('form[name=formulariomodificar] input[name=mail]')[0].value;
+      var password = $('form[name=formulariomodificar] input[name=password]')[0].value;
+      var nomyap = $('form[name=formulariomodificar] input[name=nomyap]')[0].value;
+      var dni = $('form[name=formulariomodificar] input[name=dni]')[0].value;
+      var direccion = $('form[name=formulariomodificar] input[name=direccion]')[0].value;
+      var telefono = $('form[name=formulariomodificar] input[name=telefono]')[0].value;
+
+      $.ajax({
+          type: "POST",
+          url: "<?php echo URL; ?>User/update",
+          data: {idUsuario: idUsuario, mail: mail, password: password, nomyap: nomyap, dni: dni, direccion: direccion, telefono: telefono}
+      });
+
+
+    }
+          </script>
           <?php
       }
       if(Session::getValue('TIPO')==0)//opciones para administrador

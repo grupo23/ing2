@@ -1,5 +1,5 @@
 <?php
-	define('URL', 'http://localhost/ing2/');
+	define('URL', 'http://localhost/ingenieria-2/');
 	define('LIBS','libs/');
 
 	define('DB_TYPE', 'mysql');
