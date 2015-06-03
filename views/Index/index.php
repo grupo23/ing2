@@ -137,11 +137,8 @@
  	</script>
 
  	<?php 
-  }else{ ?>
-  
-    
-      
-      <?php 
+  }else{ 
+
       if(Session::getValue('TIPO')==1)//opciones para usuario logueado
       {
         //print_r($this->userData());
@@ -234,6 +231,13 @@
 </tr>
 
 <?php
+
+$letra="articulos del hogar";
+$contenedor=URL+"Categoria/buscar";
+var_dump($contenedor);
+
+
+/*
 $sql="select * from categoria where idPadre=0";
 $res=mysql_query($sql);
 while ($reg=mysql_fetch_array($res))
@@ -284,7 +288,8 @@ echo $reg["nombre"];
             <input name="idPadre" type="number" value="<?php echo $reg["idCategoria"];?>"/>
             <input id="botonEliminarCategoria" name="botonEliminarCategoria" type="submit" value="Eliminar"/>
         </form>
-<a href="agregarCaracteristica.php" title="Agregar Caracteristica"><img src="../imagenes/agregar.png"></a>
+
+<!--  <a href="agregarCaracteristica.php" title="Agregar Caracteristica"><img src="../imagenes/agregar.png"></a>  -->
 </td>
 </tr>
 
@@ -325,7 +330,7 @@ echo $reg["nombre"];
 
           </div>
           <?php
-      }
+      */}
       ?>
     
     <script>

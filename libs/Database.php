@@ -78,6 +78,6 @@ Class Database extends PDO
 		$sth = $this->prepare("DELETE FROM $table WHERE $where");
 		$sth->bindValue(':$key',$dato);
 		return $sth->execute();
-	}	
+	}
 }
 ?>
