@@ -72,7 +72,7 @@
 				isset($_POST["nomyap"]) && isset($_POST["dni"]) &&
 		        isset($_POST["direccion"]) && isset($_POST["telefono"]))
                 {
-                	$data["idUsuario"] = $_POST["idUsuario"];
+                  $data["idUsuario"] = $_POST["idUsuario"];
           	      $data["password"] = $_POST["password"];
 			      $data["nomyap"] = $_POST["nomyap"];
 			      $data["dni"] = $_POST["dni"];
@@ -82,6 +82,21 @@
 			      ?><script> document.location = "<?php echo URL; ?>";</script><?php
 			   }
 		}
+
+		public function delete()
+		{
+			 $response = $this->model->delete( array('idUsuario'=>$_POST["idUsuario"]) );
+				if(isset($response[0]))
+				{
+					$response = $response[0];
+					if($response["idUsuario"] == $_POST["idUsuario"])
+					{
+						$this->destroySession();
+						?><script> document.location = "<?php echo URL; ?>";</script><?php
+					}
+			   }
+		}
+		
 
 		function createSession($mail,$id,$tipo)
 		{

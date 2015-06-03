@@ -157,15 +157,21 @@
                   <input name="direccion" type="text" placeholder="Direccion" required/>
                   <input name="telefono" type="text" placeholder="Telefono" required/>
                   <input id="botonactualizar" name="botonactualizar" type="submit" value="actualizar" required/>
-                  <input name="botondardebaja" type="submit" value="eliminar" required/>
+                  <input id="botondardebaja" name="botondardebaja" type="submit" value="eliminar" required/
+
               </form>
               
             </div>
           </div>
+
           <script type="text/javascript">
     $('#botonactualizar').click(function(e)
       {
         update();
+      });
+     $('#botondardebaja').click(function(e)
+      {
+         eliminar();
       });
     function update();
     {
@@ -183,6 +189,23 @@
           data: {idUsuario: idUsuario, mail: mail, password: password, nomyap: nomyap, dni: dni, direccion: direccion, telefono: telefono}
       });
 
+
+    }
+
+    function eliminar()
+    {
+      var idUsuario= $('form[name=formulariomodificar] input[name=idUsuario]')[0].value;
+      var mail = $('form[name=formulariomodificar] input[name=mail]')[0].value;
+      var password = $('form[name=formulariomodificar] input[name=password]')[0].value;
+      var nomyap = $('form[name=formulariomodificar] input[name=nomyap]')[0].value;
+      var dni = $('form[name=formulariomodificar] input[name=dni]')[0].value;
+      var direccion = $('form[name=formulariomodificar] input[name=direccion]')[0].value;
+      var telefono = $('form[name=formulariomodificar] input[name=telefono]')[0].value;
+      $.ajax({
+          type: "POST",
+          url: "<?php echo URL; ?>User/delete",
+          data: {idUsuario: idUsuario, mail: mail, password: password}
+      });
 
     }
           </script>
