@@ -22,9 +22,9 @@
            print("El usuario ha sido modificado");
 		}
 
-		function delete()
+		function delete($idUsuario)
 		{
-			 $this->db->delete('usuario', "idUsuario = :idUsuario", 'idUsuario', $data);
+			 $this->db->delete('usuario', 'idUsuario = :idUsuario', 'idUsuario', $idUsuario);
 		}
 	}
 ?>

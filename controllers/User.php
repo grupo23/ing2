@@ -85,17 +85,16 @@
 
 		public function delete()
 		{
-			 $response = $this->model->delete( array('idUsuario'=>$_POST["idUsuario"]) );
-				if(isset($response[0]))
-				{
-					$response = $response[0];
-					if($response["idUsuario"] == $_POST["idUsuario"])
-					{
-						$this->destroySession();
-						?><script> document.location = "<?php echo URL; ?>";</script><?php
-					}
-			   }
-		}
+			print($_POST["idUsuario"]);
+
+			if(isset($_POST["idUsuario"])){
+                  $response = $this->model->delete($_POST["idUsuario"] );
+                  $this->destroySession();
+				  ?><script> document.location = "<?php echo URL; ?>";</script><?php
+					
+			 }
+         }
+					
 		
 
 		function createSession($mail,$id,$tipo)

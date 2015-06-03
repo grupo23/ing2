@@ -148,18 +148,19 @@
               <span class="correo"><?php echo Session::getValue('MAIL'); ?></span>
               <button id="closeSessionBtn">Cerrar Session</button>
               <div class="formTitle">Actualizar</div>
-              <form name="formulariomodificar" action="<?php echo URL; ?>User/update" method="post">
                   <input name="idUsuario" type="hidden" value="<?php echo Session::getValue('ID'); ?>" required/>
-                  <input name="mail" type="email" placeholder="correo electronico" required/>
-                  <input name="password" type="password" placeholder="Password" required/>
-                  <input name="nomyap" type="text" placeholder="nombre y apellido" required/>
-                  <input name="dni" type="number" placeholder="Dni" required/>
-                  <input name="direccion" type="text" placeholder="Direccion" required/>
-                  <input name="telefono" type="text" placeholder="Telefono" required/>
+                  <input name="mail" type="email" value="<?php echo Session::getValue('MAIL')?>" placeholder="correo electronico" required/>
+                  <input name="password" type="password" value:"" placeholder="Password" required/>
+                  <input name="nomyap" type="text" value:"" placeholder="nombre y apellido" required/>
+                  <input name="dni" type="number" value:"" placeholder="Dni" required/>
+                  <input name="direccion" type="text" value:"" placeholder="Direccion" required/>
+                  <input name="telefono" type="text" value:"" placeholder="Telefono" required/>
                   <input id="botonactualizar" name="botonactualizar" type="submit" value="actualizar" required/>
-                  <input id="botondardebaja" name="botondardebaja" type="submit" value="eliminar" required/
-
               </form>
+               <form name="formularioEliminar" action="<?php echo URL; ?>User/delete" method="post">
+               <input name="idUsuario" type="hidden" value="<?php echo Session::getValue('ID'); ?>" required/>
+               <input id="botondardebaja" name="botondardebaja" type="submit" value="eliminar" required/>
+               </form>
               
             </div>
           </div>
@@ -191,23 +192,19 @@
 
 
     }
-
+     <script>
     function eliminar()
     {
-      var idUsuario= $('form[name=formulariomodificar] input[name=idUsuario]')[0].value;
-      var mail = $('form[name=formulariomodificar] input[name=mail]')[0].value;
-      var password = $('form[name=formulariomodificar] input[name=password]')[0].value;
-      var nomyap = $('form[name=formulariomodificar] input[name=nomyap]')[0].value;
-      var dni = $('form[name=formulariomodificar] input[name=dni]')[0].value;
-      var direccion = $('form[name=formulariomodificar] input[name=direccion]')[0].value;
-      var telefono = $('form[name=formulariomodificar] input[name=telefono]')[0].value;
+      var idUsuario= $('form[name=formularioEliminar] input[name=idUsuario]')[0].value;
+       print(idUsuario);
       $.ajax({
           type: "POST",
           url: "<?php echo URL; ?>User/delete",
-          data: {idUsuario: idUsuario, mail: mail, password: password}
+          data:{idUsuario: idUsuario}
       });
-
     }
+
+    </script>
           </script>
           <?php
       }

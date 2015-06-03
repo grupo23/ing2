@@ -76,7 +76,7 @@ Class Database extends PDO
 	public function delete($table, $where, $key, $dato, $limit=1)
 	{
 		$sth = $this->prepare("DELETE FROM $table WHERE $where");
-		$sth->bindValue(':$key',$dato);
+		$sth->bindValue(":$key",$dato);
 		return $sth->execute();
 	}
 }
