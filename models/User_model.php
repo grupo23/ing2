@@ -1,35 +1,28 @@
 <?php
+	class User_model extends Model
+	{
+		function __construct()
+		{
+			parent::__construct();
+		}
+		function signUp($data)
+		{
+			//return $this->db->insert('usuario',$data);
+			return $this->db->insert('usuario',$data);
+		}
+		function signIn($data)
+		{
+			//return $this->db->select($fields,'usuario',$where);
+			return $this->db->select("SELECT * FROM usuario WHERE mail = :mail",$data);
+		}
+		function filtrar_por_nombre_y_descripcion($unString){
+			$aux="SELECT * FROM producto WHERE nombre  LIKE ? OR descripcion LIKE ?";
+			$parametros=array( "%$unString%", "%$unString%");
 
-class User_model extends Model {
+			//$aux=addslashes($aux);
+			//echo $aux;
 
-    function __construct() {
-        parent::__construct();
-    }
-
-    function signUp($data) {
-        //return $this->db->insert('usuario',$data);
-        return $this->db->insert('usuario', $data);
-    }
-
-    function signIn($data) {
-        //return $this->db->select($fields,'usuario',$where);
-        return $this->db->select("SELECT * FROM usuario WHERE mail = :mail", $data);
-    }
-    
-    function recoveryPass($data) {
-        return $this->db->select("SELECT * FROM usuario WHERE mail = :mail", $data);
-    }
-
-    function update($data) {
-
-        return $this->db->update('usuario', $data, "idUsuario = :idUsuario");
-        ?><script> alert("El usuario ha sido modificado"); </script><?php
-    }
-
-    function delete($idUsuario) {
-        $this->db->delete('usuario', 'idUsuario = :idUsuario', 'idUsuario', $idUsuario);
-    }
-
-}
-
+			return $this->db->seleccionar($aux,$parametros);
+		}
+	}
 ?>

@@ -22,6 +22,13 @@ Class Database extends PDO
 		$sth->execute();
 		return $sth->fetchAll($fetchMode);
 	}
+	public function seleccionar($sql, $param,$fetchMode = PDO::FETCH_ASSOC)
+	{
+		$sth = $this->prepare($sql);
+		
+		$sth->execute($param);
+		return $sth->fetchAll($fetchMode);
+	}
 	//$sql = "select * from usuario WHERE id = :id"; $array = array('id'=>$id);
 	/**
 	*@param String $table
@@ -50,7 +57,6 @@ Class Database extends PDO
 	*/
 	public function update($table,$data,$where)
 	{
-
 		ksort($data);
 		$fieldDetails = NULL;
 		foreach ($data as $key => $values)
@@ -76,8 +82,8 @@ Class Database extends PDO
 	public function delete($table, $where, $key, $dato, $limit=1)
 	{
 		$sth = $this->prepare("DELETE FROM $table WHERE $where");
-		$sth->bindValue(":$key",$dato);
+		$sth->bindValue(':$key',$dato);
 		return $sth->execute();
-	}
+	}	
 }
 ?>
