@@ -190,19 +190,22 @@
                         <span class="correo"><?php echo Session::getValue('MAIL'); ?></span>
                         <button id="closeSessionBtn">Cerrar Session</button>
                         <div class="formTitle">Actualizar</div>
+                        <form name="formulariomodificar" action="<?php echo URL; ?>User/update" method="post">
                         <input name="idUsuario" type="hidden" value="<?php echo Session::getValue('ID'); ?>" required/>
-                        <input name="mail" type="email" value="<?php echo Session::getValue('MAIL') ?>" placeholder="correo electronico" required/>
-                        <input name="password" type="password" value:"" placeholder="Password" required/>
-                               <input name="nomyap" type="text" value:"" placeholder="nombre y apellido" required/>
-                               <input name="dni" type="number" value:"" placeholder="Dni" required/>
-                               <input name="direccion" type="text" value:"" placeholder="Direccion" required/>
-                               <input name="telefono" type="text" value:"" placeholder="Telefono" required/>
-                               <input id="botonactualizar" name="botonactualizar" type="submit" value="actualizar" required/>
+                        <input name="mail" type="email" value="<?php echo Session::getValue('MAIL'); ?>" placeholder="correo electronico" required/>
+                        <input name="password" type="password" value="<?php echo Session::getValue('PASS'); ?>" placeholder="Password" required/>
+                        <input name="nomyap" type="text" value="<?php echo Session::getValue('NOMBRE'); ?>" placeholder="nombre y apellido" required/>
+                        <input name="dni" type="number" value="<?php echo Session::getValue('DNI'); ?>" placeholder="dni" required/>
+                        <input name="direccion" type="text" value="<?php echo Session::getValue('DIR'); ?>" placeholder="direccion" required/>
+                        <input name="telefono" type="number" value="<?php echo Session::getValue('TEL'); ?>" placeholder="telefono" required/>
+                        <input name="imagen"  type="file"  enctype="multipart/form-data" placeholder="imagen" />
+                        <input id="botonactualizar" name="botonactualizar" type="submit" value="modificar" required/>
                         </form>
                         <form name="formularioEliminar" action="<?php echo URL; ?>User/delete" method="post">
                             <input name="idUsuario" type="hidden" value="<?php echo Session::getValue('ID'); ?>" required/>
                             <input id="botondardebaja" name="botondardebaja" type="submit" value="eliminar" required/>
                         </form>
+
 
                     </div>
                 </div>
@@ -218,7 +221,8 @@
                     });
                             function update();
                             {
-                            var idUsuario = $('form[name=formulariomodificar] input[name=idUsuario]')[0].value;
+                                    alert("paso 1");
+                                    var idUsuario = $('form[name=formulariomodificar] input[name=idUsuario]')[0].value;
                                     var mail = $('form[name=formulariomodificar] input[name=mail]')[0].value;
                                     var password = $('form[name=formulariomodificar] input[name=password]')[0].value;
                                     var nomyap = $('form[name=formulariomodificar] input[name=nomyap]')[0].value;
@@ -231,7 +235,19 @@
                                             data: {idUsuario: idUsuario, mail: mail, password: password, nomyap: nomyap, dni: dni, direccion: direccion, telefono: telefono}
                                     });
                             }
-           < script >
+                            
+                           function updateImagen();
+                           {
+                            var idUsuario = $('form[name=formulariomodificar] input[name=idUsuario]')[0].value;
+                            var imagen  = $('form[name=formulariomodificar] input[name=imagen]')[0].value
+                            $.ajax({
+                               type: "POST",
+                               url: "<?php echo URL; ?>User/updateImagen",
+                               data: {idUsuario: idUsuario, imagen:imagen}
+                             });
+                            }
+
+               < script >
                        function eliminar()
                        {
                            var idUsuario = $('form[name=formularioEliminar] input[name=idUsuario]')[0].value;

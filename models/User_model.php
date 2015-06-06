@@ -23,7 +23,7 @@ class User_model extends Model {
     function update($data) {
 
         return $this->db->update('usuario', $data, "idUsuario = :idUsuario");
-        print("El usuario ha sido modificado");
+        ?><script> alert("El usuario ha sido modificado"); </script><?php
     }
 
     function delete($idUsuario) {

@@ -8,7 +8,6 @@ class User extends Controller
 
     public function signUp()
     {
-        //name, username, email, password
         if(isset($_POST["mail"]) && isset($_POST["password"]) &&
             isset($_POST["nomyap"]) && isset($_POST["dni"]) &&
             isset($_POST["direccion"]) && isset($_POST["telefono"]))
@@ -30,21 +29,19 @@ class User extends Controller
             ?><script> alert("uno o mas datos son nulos");
             document.location = "<?php echo URL; ?>";</script><?php
         }
-        /* ?><script> document.location = "<?php echo URL; ?>";</script><?php */
     }
 
     public function signIn()
     {
         if(isset($_POST["mail"]) && isset($_POST["password"]))
         {
-            //$response = $this->model->signIn("*","username = '".$_POST["username"]."'");
             $response = $this->model->signIn( array(':mail' => $_POST["mail"]) );
             if(isset($response[0]))
             {
                 $response = $response[0];
                 if($response["password"] == $_POST["password"])
                 {
-                    $this->createSession($response["mail"], $response["idUsuario"], $response["tipoUsuario"]);
+                    $this->createSession($response);
                     ?><script> document.location = "<?php echo URL; ?>";</script><?php
                 }
                 else
@@ -57,9 +54,9 @@ class User extends Controller
             {
                 ?><script> alert("correo o contraseña incorrecto");
                 document.location = "<?php echo URL; ?>";</script><?php
+            
             }
-            /* ?><script> document.location = "<?php echo URL; ?>";</script><?php */
-        }
+          }
         else
         {
             ?><script> alert("uno o mas datos son nulos");
@@ -72,8 +69,7 @@ class User extends Controller
         if (isset($_POST["mail"])) {
             $response = $this->model->recoveryPass(array(':mail' => $_POST["mail"]));
             if (isset($response[0])) {
-                //mail($_POST["mail"], "Recuperacion de clave", "Tu nueva clave es 12345");
-                ?><script src="js/gdAlert.js" type="text/javascript"></script> <script> alert("Se ha enviado la clave a tu correo electronico!");
+                ?><script src="js/gdAlert.js" type="text/javascript">; alert("Se ha enviado la clave a tu correo electronico!");
             document.location = "<?php echo URL; ?>";</script><?php
             }
             else {
@@ -82,6 +78,11 @@ class User extends Controller
             }
         }
     }
+    function validar($mail) {
+     ?><script> var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+      return regex.test($mail); </script><?php
+     }
+
     
     public function update()
     {
@@ -89,17 +90,22 @@ class User extends Controller
         if(isset($_POST["idUsuario"]) && isset($_POST["mail"]) && isset($_POST["password"]) &&
             isset($_POST["nomyap"]) && isset($_POST["dni"]) &&
             isset($_POST["direccion"]) && isset($_POST["telefono"]))
-        {
-            $data["idUsuario"] = $_POST["idUsuario"];
-            $data["password"] = $_POST["password"];
-            $data["nomyap"] = $_POST["nomyap"];
-            $data["dni"] = $_POST["dni"];
-            $data["direccion"] = $_POST["direccion"];
-            $data["telefono"] = $_POST["telefono"];
-            $this->model->update($data);
-            ?><script> document.location = "<?php echo URL; ?>";</script><?php
+            {
+            $data["mail"] = $_POST["mail"];
+             if(validar($_POST["mail"]))
+             {
+              $data["idUsuario"] = $_POST["idUsuario"];
+              $data["password"] = $_POST["password"];
+              $data["nomyap"] = $_POST["nomyap"];
+              $data["dni"] = $_POST["dni"];
+              $data["direccion"] = $_POST["direccion"];
+              $data["telefono"] = $_POST["telefono"];
+              $this->model->update($data);
+             ?><script> document.location = "<?php echo URL; ?>";</script><?php
+         }
         }
     }
+    
 
     public function delete()
     {
@@ -112,11 +118,18 @@ class User extends Controller
         }
     }
 
-    function createSession($mail, $id, $tipo)
+    function createSession($data)
     {
-        Session::setValue('MAIL', $mail);
-        Session::setValue('ID', $id);
-        Session::setValue('TIPO', $tipo);
+        Session::setValue('ID', $data["idUsuario"]);
+        Session::setValue('MAIL', $data["mail"]);
+        Session::setValue('PASS', $data["password"]);
+        Session::setValue('NOMBRE', $data["nomyap"]);
+        Session::setValue('DNI', $data["dni"]);
+        Session::setValue('TIPO', $data["tipoUsuario"]);
+        Session::setValue('DIR', $data["direccion"]);
+        Session::setValue('TEL', $data["telefono"]);
+        Session::setValue('IMAG', $data["imagen"]);
+        Session::setValue('TIMAG', $data["tipoimagen"]);
     }
     
     function destroySession()
