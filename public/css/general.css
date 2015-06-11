@@ -3,6 +3,10 @@
 	margin:0px;
 	padding:0px;
 }
+html
+{
+  height:100%;
+}
 body
 {
     font-family: Arial, Helvetica, sans-serif;
@@ -17,14 +21,28 @@ body
 	padding-top:0;
 	padding-left:0;
 	border-style:none;
+	height:100%;
+
 }
+
+#container 
+{
+  min-height: 650px;
+}
+#buttonBuscar
+{
+	width: 100px;
+}
+.barrabusqueda
+{
+	width:300px;}
 .bloqueCategorias
 {
 	float: left;
 	position: absolute;
 	width:200px;
-	height:400px;/*quitar cuando aya elementos a mostrar*/
-	background-color:#555;
+
+
 	left:25px;
 	top:200px;
 }
@@ -46,10 +64,18 @@ body
 	right: 50px;
 	top: 200px;
 }
+.modificaryeliminar
+{
+
+	position: absolute;
+	left:1100px;
+	right: 50px;
+	top: 0px;
+}
 .cabecera
 {
 	position: absolute;
-	top: 50px;
+	top: 45px;
 	height:100px;
 	width:100%;
 	background-color:#E81614;
@@ -58,14 +84,17 @@ body
 }
 .pie
 {
-	position: absolute;
+	position:relative;
+
 	bottom: 0px;
-	top:600px;
-	height:100px;
+	height:70px;
 	width:100%;
 	background-color:#E81614;
 	box-shadow: 0px -8px 8px rgba(0,0,0,0.5); 
 	border: 1px solid black;
+
+
+  margin-top:-40px;
 
 }
 .logosubasta
@@ -87,7 +116,7 @@ body
 {
 	float: right;
 	position: absolute;
-	top:15px;
+	top:13px;
 	right: 220px;
 	color:#000;
 	display:block;
@@ -101,7 +130,7 @@ body
 {
 	float: right;
 	position: absolute;
-	top:8px;
+	top:5px;
 	right: 50px;
 	color:#50361b;
 	display:block;
@@ -111,16 +140,18 @@ body
 	width: 150px;
 	height: 35px;
 }
-input
+.recuadro
 {
 	display:block;
 	padding:10px;
 	width:100%;
 	border-radius: 15px;
 }
-input[type=submit]
+.signInBtn, .signUpBtn, .botonactualizar, .botondardebaja, .recoveryPassBtn
 {
+	display:block;
 	padding:10px;
+	border-radius: 15px;
 	width:112%;
 	color:#50361b;
 	font-size:150%;
@@ -130,13 +161,7 @@ input[type=submit]
 {
 	margin-top:15%;
 	float:right;
-	/*position: absolute;
-	top:250px;
-	left:1000px;*/
 	width: 200px;
-
-	/*margin-bottom: 50px;*/
-	/*margin: auto auto;*/
 }
 .formTitle
 {
@@ -170,9 +195,35 @@ a, a:hover, a:active, .smallText .button
 {
 	display: none;
 }
-
-.fancyForm:button{
- padding: 10px;
- display:block;
- width: 108%;
+.fancyForm: button{
+    padding: 10px;
+    display:block;
+    width: 108%;
 }
+.tablagen
+{
+	position: relative;
+    display:table;
+    left:50px;
+    top: 50px;
+    min-height: 450px;
+}
+.tablagen2
+{
+	position: relative;
+    display:table;
+    left:100px;
+
+}
+.fila
+{
+    display:table-row;
+}
+.columna
+{
+    display:table-cell;
+    padding:12px;
+    background:#ddd;
+}
+
+

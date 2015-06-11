@@ -5,12 +5,14 @@
         <meta charset="utf-8">
         <title>inicio</title>
         <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>public/css/general.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>public/css/styles.css" />
         <script src="<?php echo URL; ?>public/js/jquery-1.11.2.js"></script>
+        <script src="<?php echo URL; ?>public/js/busquedas.js" type="text/javascript"></script> 
     </head>
     <body>
 
 
-
+<div id="container">
 
         <!-- header -->
         <div class="cabecera">
@@ -21,24 +23,131 @@
 
         <?php if (!Session::exist()) { ?>
 
-            <div class= cuerpo>
-                <div class= bloqueCategorias>
+            <div id= "cuerpo">
+                <div class= "bloqueCategorias">
                     <!-- categorias -->
+
+
+
+
+<!--*************************************************************************-->
+
+
+
+
+
+
+<div id='cssmenu'>
+<ul>
+<?php
+
+
+$dbh = new PDO(DB_TYPE.':host='.DB_HOST.';dbname='.DB_NAME, DB_USER, DB_PASS);
+$sth = $dbh->prepare("SELECT * FROM categoria WHERE idPadre=0");
+$sth->execute();
+$result = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+foreach($result as $fila)
+{
+
+      ?>
+     <li><a href='#' onclick="capturandocategoria(<?php echo $fila["idCategoria"];?>)"><span><?php echo $fila["nombre"];?></span></a>           
+
+      <?php
+            $iden = $fila["idCategoria"];
+            $sth = $dbh->prepare("SELECT * FROM categoria WHERE idPadre=$iden");
+            $sth->execute();
+            $hijos = $sth->fetchAll(PDO::FETCH_ASSOC);
+            if(isset($hijos[0]))
+            {
+                ?> <ul> <?php
+                foreach($hijos as $filahija)
+                {
+
+                    ?>
+
+            <li><a href='#' onclick="capturandocategoria(<?php echo $filahija["idCategoria"];?>)"><?php echo $filahija["nombre"];?></a></li>
+
+            
+
+
+                  <?php
+
+                }// fin del for
+                  ?>  </ul>  <?php 
+            }// fin if de subcategorias
+ ?>     </li>   <?php   
+}
+      ?>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+<!--*************************************************************************-->
+
+
                 </div>
-                <div class= subastas>
-                    <!-- reservado para miguel -->
+                <div class= "subastas">
+
+<!--*************************************************************************-->
+
+
+
+  <div class="busquedas">
+
+        <form id="buscar" name="buscar" >
+            <input class="barrabusqueda" name="barrabusqueda" type="text" placeholder="Escriba lo que busca" />
+            <input class="botonbusqueda" name="botonbusqueda" type="submit" value="buscar" required/>
+        </form>
+      
+  </div>
+
+
+  <script type="text/javascript">
+
+                $('#signInBtn').click(function (e)
+                {
+
+                    signIn();
+                });
+                    
+
+                function buscar()
+                {
+
+                    var cadena = $('form[name=buscar] input[name=barrabusqueda]')[0].value;
+
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo URL; ?>Producto/buscar",
+                        data: {cadena: cadena}
+                    });
+                }
+
+  </script>
+
+
+
+<!--*************************************************************************-->
+
                 </div>
 
-                <div class= regylog>
+                <div class= "regylog">
                     <!-- login -->
                     <div class="formWrapper">
                         <div class="formTitle">Entrar</div>
                         <form id="signInForm" action="<?php echo URL; ?>User/signIn" name="signIn" method="post">
 
-                            <input name="mail" type="email" placeholder="Correo Electronico" required/>
-                            <input name="password" type="password" placeholder="Contraseña" required/>
+                            <input class="recuadro" name="mail" type="email" placeholder="Correo Electronico" required/>
+                            <input class="recuadro" name="password" type="password" placeholder="Contraseña" required/>
 
-                            <input id="signInBtn" name="signInBtn" type="submit" value="Entrar" required/>
+                            <input class="signInBtn" id="signInBtn" name="signInBtn" type="submit" value="Entrar" required/>
                             <div class="smallText">
                                 <span>¿No estas registrado?<br>
                                     <div class="button" id="signUpButton">Registrate Aqui</div>
@@ -55,14 +164,14 @@
                         <div class="formTitle">Registro</div>
                         <form id="signUpForm" action="<?php echo URL; ?>User/signUp" name="signUp" method="post">
 
-                            <input name="mail" type="email" placeholder="ejemplo@ejemplo.com" required/>
-                            <input name="password" type="password" placeholder="Password" required/>
-                            <input name="nomyap" type="text" placeholder="nombre y apellido" required/>
-                            <input name="dni" type="number" placeholder="Dni" required/>
-                            <input name="direccion" type="text" placeholder="Direccion" required/>
-                            <input name="telefono" type="text" placeholder="Telefono" required/>
+                            <input class="recuadro" name="mail" type="email" placeholder="ejemplo@ejemplo.com" required/>
+                            <input class="recuadro" name="password" type="password" placeholder="Password" required/>
+                            <input class="recuadro" name="nomyap" type="text" placeholder="nombre y apellido" required/>
+                            <input class="recuadro" name="dni" type="number" placeholder="Dni" required/>
+                            <input class="recuadro" name="direccion" type="text" placeholder="Direccion" required/>
+                            <input class="recuadro" name="telefono" type="text" placeholder="Telefono" required/>
 
-                            <input id="signUpBtn" name="singUpBtn" type="submit" value="Registrarme" required/>
+                            <input class="signUpBtn" id="signUpBtn" name="singUpBtn" type="submit" value="Registrarme" required/>
                             <div class="smallText">
                                 <span>¿Si estas registrado?<br>
                                     <div class="button" id="signInButton">Volver</div>
@@ -76,10 +185,12 @@
                         <div class="formTitle">Recuperar contraseña</div>
                         <form id="recoveryPassForm" action="<?php echo URL; ?>User/recoveryPass" name="recoveryPass" method="post">
 
-                            <input name="mail" type="email" placeholder="email" required/>
+                            <input class="recuadro" name="mail" type="email" placeholder="email" required/>
 
-                            <input id="recoveryPassBtn" name="recoveryPassBtn" type="submit" value="Enviar contraseña" required/>
+                            <input class="recoveryPassBtn" id="recoveryPassBtn" name="recoveryPassBtn" type="submit" value="Enviar contraseña" required/>
                             <div class="smallText">
+                                <span>¿recordaste tu contraseña?<br>
+                                    <div class="button" id="signInButton2">Volver</div>
                                 </span>
                             </div>
                         </form>
@@ -182,33 +293,36 @@
             <?php
         } else {
 
-            if (Session::getValue('TIPO') == 1) {//opciones para usuario logueado
+            if (Session::getValue('TIPO') == 1) 
+            {//opciones para usuario logueado
                 //print_r($this->userData());
                 ?>
-                <div class="formWrapper">
-                    <div class="botoncerrar">
-                        <span class="correo"><?php echo Session::getValue('MAIL'); ?></span>
+                <span class="correo"><?php echo Session::getValue('MAIL'); ?></span>
                         <button id="closeSessionBtn">Cerrar Session</button>
+                <div class="formWrapper modificaryeliminar">
+                    <div class="botoncerrar">
+                        
                         <div class="formTitle">Actualizar</div>
                         <form name="formulariomodificar" action="<?php echo URL; ?>User/update" method="post">
-                        <input name="idUsuario" type="hidden" value="<?php echo Session::getValue('ID'); ?>" required/>
-                        <input name="mail" type="email" value="<?php echo Session::getValue('MAIL'); ?>" placeholder="correo electronico" required/>
-                        <input name="password" type="password" value="<?php echo Session::getValue('PASS'); ?>" placeholder="Password" required/>
-                        <input name="nomyap" type="text" value="<?php echo Session::getValue('NOMBRE'); ?>" placeholder="nombre y apellido" required/>
-                        <input name="dni" type="number" value="<?php echo Session::getValue('DNI'); ?>" placeholder="dni" required/>
-                        <input name="direccion" type="text" value="<?php echo Session::getValue('DIR'); ?>" placeholder="direccion" required/>
-                        <input name="telefono" type="number" value="<?php echo Session::getValue('TEL'); ?>" placeholder="telefono" required/>
-                        <input name="imagen"  type="file"  enctype="multipart/form-data" placeholder="imagen" />
-                        <input id="botonactualizar" name="botonactualizar" type="submit" value="modificar" required/>
+                        <input class="recuadro" name="idUsuario" type="hidden" value="<?php echo Session::getValue('ID'); ?>" required/>
+                        <input class="recuadro" name="mail" type="email" value="<?php echo Session::getValue('MAIL'); ?>" placeholder="correo electronico" required/>
+                        <input class="recuadro" name="password" type="password" value="<?php echo Session::getValue('PASS'); ?>" placeholder="Password" required/>
+                        <input class="recuadro" name="nomyap" type="text" value="<?php echo Session::getValue('NOMBRE'); ?>" placeholder="nombre y apellido" required/>
+                        <input class="recuadro" name="dni" type="number" value="<?php echo Session::getValue('DNI'); ?>" placeholder="dni" required/>
+                        <input class="recuadro" name="direccion" type="text" value="<?php echo Session::getValue('DIR'); ?>" placeholder="direccion" required/>
+                        <input class="recuadro" name="telefono" type="number" value="<?php echo Session::getValue('TEL'); ?>" placeholder="telefono" required/>
+                        <input class="recuadro" name="imagen"  type="file"  enctype="multipart/form-data" placeholder="imagen" />
+                        <input class="botonactualizar" id="botonactualizar" name="botonactualizar" type="submit" value="modificar" required/>
                         </form>
                         <form name="formularioEliminar" action="<?php echo URL; ?>User/delete" method="post">
-                            <input name="idUsuario" type="hidden" value="<?php echo Session::getValue('ID'); ?>" required/>
-                            <input id="botondardebaja" name="botondardebaja" type="submit" value="eliminar" required/>
+                            <input class="recuadro" name="idUsuario" type="hidden" value="<?php echo Session::getValue('ID'); ?>" required/>
+                            <input class="botondardebaja" id="botondardebaja" name="botondardebaja" type="submit" value="eliminar" required/>
                         </form>
 
 
                     </div>
                 </div>
+
 
                 <script type="text/javascript">
                     $('#botonactualizar').click(function (e)
@@ -221,7 +335,7 @@
                     });
                             function update();
                             {
-                                    alert("paso 1");
+
                                     var idUsuario = $('form[name=formulariomodificar] input[name=idUsuario]')[0].value;
                                     var mail = $('form[name=formulariomodificar] input[name=mail]')[0].value;
                                     var password = $('form[name=formulariomodificar] input[name=password]')[0].value;
@@ -238,8 +352,8 @@
                             
                            function updateImagen();
                            {
-                            var idUsuario = $('form[name=formulariomodificar] input[name=idUsuario]')[0].value;
-                            var imagen  = $('form[name=formulariomodificar] input[name=imagen]')[0].value
+                            var idUsuario = $('form[name=formulariomodificar] input[name=idUsuario]').value;
+                            var imagen  = $('form[name=formulariomodificar] input[name=imagen]').value
                             $.ajax({
                                type: "POST",
                                url: "<?php echo URL; ?>User/updateImagen",
@@ -247,11 +361,11 @@
                              });
                             }
 
-               < script >
+
                        function eliminar()
                        {
                            var idUsuario = $('form[name=formularioEliminar] input[name=idUsuario]')[0].value;
-                           print(idUsuario);
+
                            $.ajax({
                                type: "POST",
                                url: "<?php echo URL; ?>User/delete",
@@ -263,7 +377,8 @@
             </script>
         <?php
     }
-    if (Session::getValue('TIPO') == 0) {//opciones para administrador//insert into usuario values (null,'admin@admin.com',1234,'admin',999,0,'av. siempre viva',8003333,null,null)
+    if (Session::getValue('TIPO') == 0) 
+    {//opciones para administrador//insert into usuario values (null,'admin@admin.com',1234,'admin',999,0,'av. siempre viva',8003333,null,null)
         ?>
             <div class="formadmin">
                 <div class="botoncerrar">
@@ -271,141 +386,279 @@
                     <button id="closeSessionBtn">Cerrar Session</button>
                 </div>
 
-                <div>
+            </div>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
+<?php $saltos="" ?>
+
+<div class="tablagen">
+
+<h3>modificar y eliminar Categorias padre</h3>
+<div class="modificareliminar">
+<?php
 
 
+$dbh = new PDO(DB_TYPE.':host='.DB_HOST.';dbname='.DB_NAME, DB_USER, DB_PASS);
+$sth = $dbh->prepare("SELECT * FROM categoria WHERE idPadre=0");
+$sth->execute();
+$result = $sth->fetchAll(PDO::FETCH_ASSOC);
 
+foreach($result as $fila)
+{
+    $saltos=$saltos."<br>";
+      ?>
+      <div class="fila">
 
+      <div class="columna" >
+        <form id="formModificarCategoria"  name="formModificarCategoria" action="<?php echo URL; ?>Categoria/botonModificarCategoria" method="post" >
+            <input name="nombreCategoria" type="text" value="<?php echo $fila["nombre"];?>" placeholder="escriba un nombre" required/>
+            <input name="idCategoria" type="hidden" value="<?php echo $fila["idCategoria"];?>"/>
+            <input name="idPadre" type="hidden" value="<?php echo $fila["idPadre"];?>" />
+            <input id="botonModificarCategoria" name="botonModificarCategoria" type="submit" value="Modificar"/>
+        </form>
+      </div>
 
+      <script type="text/javascript">
+      $('#botonModificarCategoria').click(function(e)
+      {
+        botonModificarCategoria();
+      });
 
+      function botonModificarCategoria();
+      {
+        
+        var idCategoria = $('form[name=formModificarCategoria] input[name=idCategoria]').value;
+        var idPadre = $('form[name=formModificarCategoria] input[name=idPadre]').value;
+        var nombreCategoria = $('form[name=formModificarCategoria] input[name=nombreCategoria]').value;
 
-
-
-
-
-
-                    <table class="categoria">
-
-                        <tr>
-                            <td valign="top" align="center" width="150px" colspan="3">
-                                <h3>Listado de Categorias</h3>
-                            </td>
-                        </tr>
-
-                        <tr class="encabezado">
-                            <td width="100px">
-
-                            </td>
-                            <td width="25px">&nbsp;
-
-                            </td>
-                            <td width="25px">&nbsp;
-
-                            </td>
-                        </tr>
-
-        <?php
-        $letra = "articulos del hogar";
-        $contenedor = URL + "Categoria/buscar";
-        var_dump($contenedor);
-
-
-        /*
-          $sql="select * from categoria where idPadre=0";
-          $res=mysql_query($sql);
-          while ($reg=mysql_fetch_array($res))
-          {
-          ?>
-          <tr class="registros">
-          <td width="100px">
-          <?php
-          echo $reg["nombre"];
-          ?>
-          </td>
-          <td width="25px">
-          <form id="formModificarCategoria"  name="formModificarCategoria" >
-          <input name="modificarCategoria" type="text" placeholder="escriba un nombre" required/>
-          <input name="idCategoria" type="hidden" value="<?php echo $reg["idCategoria"];?>"/>
-          <input name="idPadre" type="hidden" value="<?php echo $reg["idPadre"];?>" />
-          <input id="botonModificarCategoria" name="botonModificarCategoria" type="submit" value="Modificar"/>
-          </form>
-          </td>
-
-          <td width="25px">
-          <form id="formEliminarCategoria"  name="formEliminarCategoria" >
-          <input name="idCategoria" type="hidden" value="<?php echo $reg["idCategoria"];?>"/>
-          <input id="botonEliminarCategoria" name="botonEliminarCategoria" type="submit" value="Eliminar"/>
-          </form>
-
-          </td>
-          </tr>
-          <?php
-          }
-          ?>
-          <tr>
-          <td align ="center" colspan="3">
-          <form id="formAgregarCategoria"  name="formAgregarCategoria" >
-          <select name="ti">
-          <option value="0">Seleccione un Tipo</option>
-          <?php
-          while($tip=mysql_fetch_array($mistipos))
-          {
-          ?>
-
-          <option value="<?php echo $tip["idTipo"]; ?>"><?php echo $tip["Tipo"]; ?></option>
-
-          <?php
-          }
-          ?>
-          </select>
-          <input name="idPadre" type="number" value="<?php echo $reg["idCategoria"];?>"/>
-          <input id="botonEliminarCategoria" name="botonEliminarCategoria" type="submit" value="Eliminar"/>
-          </form>
-
-          <!--  <a href="agregarCaracteristica.php" title="Agregar Caracteristica"><img src="../imagenes/agregar.png"></a>  -->
-          </td>
-          </tr>
-
-          </table>
-
-          <script>
-          $("#formModificarCategoria").submit(function(event))
-          {
-          event.preventDefault();
-          var idCategoria = $('form[name=formModificarCategoria] input[name=idCategoria]')[0].value;
-          var idPadre = $('form[name=formModificarCategoria] input[name=idPadre]')[0].value;
-          var nombre = $('form[name=formModificarCategoria] input[name=modificarCategoria]')[0].value;
-          $.ajax({
+        $.ajax({
           type: "POST",
-          url: "<?php echo URL; ?>Categoria/actualizar",
-          data: {idCategoria: idCategoria, idPadre: idPadre, nombre: nombre}
-          });
-          });
+          url: "<?php echo URL; ?>Categoria/botonModificarCategoria",
+          data: {idCategoria: idCategoria, idPadre: idPadre, nombreCategoria: nombreCategoria}
+        });
 
 
-          $("#formEliminarCategoria").submit(function(event))
-          {
-          event.preventDefault();
-          var idCategoria = $('form[name=formEliminarCategoria] input[name=idCategoria]')[0].value;
-          $.ajax({
+      }
+      </script>
+
+      <div class="columna">
+        <form id="formEliminarCategoria"  name="formEliminarCategoria" action="<?php echo URL; ?>Categoria/botonEliminarCategoria" method="post">
+            <input name="idCategoria" type="hidden" value="<?php echo $fila["idCategoria"];?>"/>
+            <input id="botonEliminarCategoria" name="botonEliminarCategoria" type="submit" value="Eliminar"/>
+        </form>
+      </div>
+
+      <script type="text/javascript">
+        $('#botonEliminarCategoria').click(function(e)
+        {
+          botonEliminarCategoria();
+        });
+    
+
+      function botonEliminarCategoria()
+      {
+        var idCategoria= $('form[name=formEliminarCategoria] input[name=idCategoria]')[0].value;
+        $.ajax({
           type: "POST",
-          url: "<?php echo URL; ?>Categoria/eliminar",
-          data: {idCategoria: idCategoria}
-          });
-          });
-          </script>>
+          url: "<?php echo URL; ?>Categoria/botonEliminarCategoria",
+          data:{idCategoria: idCategoria}
+        });
+      }
+      </script>
+
+      </div>
+
+      <?php
+            $iden = $fila["idCategoria"];
+            $sth = $dbh->prepare("SELECT * FROM categoria WHERE idPadre=$iden");
+            $sth->execute();
+            $hijos = $sth->fetchAll(PDO::FETCH_ASSOC);
+            if(isset($hijos[0]))
+            {
+                ?> <div class="tablagen2"> <div><h3>modificar y eliminar categorias hijas</h3></div> <?php
+                foreach($hijos as $filahija)
+                {
+                    $saltos=$saltos."<br>";
+                    ?>
+
+      <div class="fila">
 
 
 
+      <div class="columna" >
+        <form id="formModificarCategoriahija"  name="formModificarCategoriahija" action="<?php echo URL; ?>Categoria/botonModificarCategoria" method="post">
+            <input name="nombreCategoria" type="text" value="<?php echo $filahija["nombre"];?>" placeholder="escriba un nombre" required/>
+            <input name="idCategoria" type="hidden" value="<?php echo $filahija["idCategoria"];?>"/>
+            <input name="idPadre" type="hidden" value="<?php echo $filahija["idPadre"];?>" />
+            <input id="botonModificarCategoriahija" name="botonModificarCategoriahija" type="submit" value="Modificar"/>
+        </form>
+      </div>
+
+      <script type="text/javascript">
+        $('#botonModificarCategoriahija').click(function(e)
+      {
+        botonModificarCategoriahija();
+      });
+
+      function botonModificarCategoriahija();
+      {
+        var nombreCategoria= $('form[name=formModificarCategoriahija] input[name=nombreCategoria]')[0].value;
+        var idCategoria = $('form[name=formModificarCategoriahija] input[name=idCategoria]')[0].value;
+        var idPadre = $('form[name=formModificarCategoriahija] input[name=idPadre]')[0].value;
+      
+
+        $.ajax({
+          type: "POST",
+          url: "<?php echo URL; ?>Categoria/botonModificarCategoria",
+          data: {idCategoria: idCategoria, idPadre: idPadre, nombreCategoria: nombreCategoria}
+        });
 
 
-          </div>
+      }
+      </script>
 
-          </div>
-          <?php
-         */
-    }
-    ?>
+      <div class="columna">
+        <form id="formEliminarCategoriahija"  name="formEliminarCategoriahija" action="<?php echo URL; ?>Categoria/botonEliminarCategoriahija" method="post">
+            <input name="idCategoria" type="hidden" value="<?php echo $filahija["idCategoria"];?>"/>
+            <input id="botonEliminarCategoriahija" name="botonEliminarCategoriahija" type="submit" value="Eliminar"/>
+        </form>
+      </div>
+      <script type="text/javascript">
+        $('#botonEliminarCategoriahija').click(function(e)
+        {
+          botonEliminarCategoriahija();
+        });
+    
+
+      function botonEliminarCategoriahija()
+      {
+        var idCategoria= $('form[name=formEliminarCategoriahija] input[name=idCategoria]')[0].value;
+        $.ajax({
+          type: "POST",
+          url: "<?php echo URL; ?>Categoria/botonEliminarCategoriahija",
+          data:{idCategoria: idCategoria}
+        });
+      }
+      </script>
+      
+      </div> <!-- fin apartado de hijas -->
+
+                  <?php
+
+                }// fin del for
+                  ?>  </div>  <!-- fin tablagen2 -->  <?php 
+            }// fin if de modificar y eliminar hijos
+            
+}
+      ?>
+      </div> <!-- fin div modificar eliminar -->
+
+
+      <div><h3>Agregar Categorias padre</h3></div>
+
+      <div class="agregarcategoriapadre">
+
+      <div class="fila">
+      <div class="columna">
+        <form id="formAgregarCategoria"  name="formAgregarCategoria" action="<?php echo URL; ?>Categoria/botonAgregarCategoria" method="post" >
+            <input name="nombreCategoria" type="text"  placeholder="escriba un nombre" required/>
+            <input id="botonAgregarCategoria" name="botonAgregarCategoria" type="submit" value="Agregar"/>
+        </form>
+      </div>
+
+      <script type="text/javascript">
+
+        $('#botonAgregarCategoria').click(function(e)
+      {
+        botonAgregarCategoria();
+      });
+
+      function botonAgregarCategoria();
+      {
+        var nombreCategoria= $('form[name=formAgregarCategoria] input[name=nombreCategoria]')[0].value;
+      
+
+        $.ajax({
+          type: "POST",
+          url: "<?php echo URL; ?>Categoria/botonAgregarCategoria",
+          data: {nombreCategoria: nombreCategoria}
+        });
+
+
+      }
+
+      </script>
+
+      </div>
+
+      </div> <!-- fin agregar categoria padre -->
+
+<div><h3>Agregar SubCategoria</h3></div>
+
+      <div class="agregarsubcategoria">
+
+<div class="fila">
+<div class="columna">
+        <form id="formAgregarSubCategoria"  name="formAgregarSubCategoria" action="<?php echo URL; ?>Categoria/botonAgregarSubCategoria" method="post" >
+                <select id="miCombo" class="miCombo" name="idPadre"> 
+                <option value="0">Seleccione una categoria padre</option>  
+                    <?php
+                    foreach($result as $fila)
+                    {
+                    ?>
+
+                        <option value="<?php echo $fila["idCategoria"]; ?>"><?php echo $fila["nombre"]; ?></option>
+
+                    <?php
+                    }
+                    ?>
+                </select> 
+            <input name="nombreNueva" type="text" placeholder="escriba un nombre" required/>
+            <input class="contenedor" id="contenedor" name="idPadrecategoria" type="hidden" />
+            <input id="botonAgregarSubCategoria" name="botonAgregarSubCategoria" type="submit" value="Agregar"/>
+        </form>
+        <script type="text/javascript">
+
+
+       $("#miCombo").change(function () {
+    var str;
+    $( "#miCombo option:selected" ).each(function() {
+      str = $( this ).value();
+    });
+    $( "input[name=idPadrecategoria]" ).val(str);
+    }).change(); 
+
+
+      $('#botonAgregarSubCategoria').click(function(e)
+      {
+        botonAgregarSubCategoria();
+      });
+
+      function botonAgregarSubCategoria();
+      {
+        var nombreCategoria= $('form[name=formAgregarCategoria] input[name=nombreCategoria]')[0].value;
+        var idPadrecategoria= $('form[name=formAgregarCategoria] input[name=idPadrecategoria]')[0].value;
+
+        $.ajax({
+          type: "POST",
+          url: "<?php echo URL; ?>Categoria/botonAgregarSubCategoria",
+          data: {nombreCategoria: nombreCategoria , idPadrecategoria: idPadrecategoria}
+        });
+
+
+      }
+
+
+      </script>
+      </div>
+      </div>
+      </div>  <!-- fin agregar subcategoria -->
+</div>  <!-- fin tablagen -->
+<?php echo $saltos ?>
+
+    <?php    
+    }// cerrando bloque administrador
+        ?>
 
                     <script>
                         $(function ()
@@ -416,11 +669,10 @@
                             });
                         });
                     </script>
-<?php } ?>
+<?php }//cerrando bloque else general ?>
 
 
-
-
+</div>
                 <div class= pie>
                     <!-- pie de pagina -->
                 </div>

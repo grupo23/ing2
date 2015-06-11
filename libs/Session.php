@@ -11,7 +11,7 @@
 		}
 		static function getValue($var)
 		{
-			return ($_SESSION[$var]);
+			return $_SESSION[$var];
 		}
 		static function setValue($var, $val)
 		{

@@ -12,6 +12,16 @@ Class Database extends PDO
 	*@return mixed
 	*/
 	
+	public function addcslashes($imagen, $tipoimagen)
+	{
+        $sth = $dbh->prepare("UPDATE user SET driver_img = :driver_img WHERE email = :email ");
+        $sth->bindParam(':imagen', $imagen, PDO::PARAM_STR, 100);
+        $sth->bindParam(':tipoimagen', $tipoimagen, PDO::PARAM_LOB); 
+
+        return $sth->execute(); 
+ 
+	}
+
 	public function select($sql, $array = array(),$fetchMode = PDO::FETCH_ASSOC)
 	{
 		$sth = $this->prepare($sql);
@@ -20,6 +30,13 @@ Class Database extends PDO
 			$sth->bindValue("$key",$value);
 		}
 		$sth->execute();
+		return $sth->fetchAll($fetchMode);
+	}
+	public function seleccionar($sql, $param,$fetchMode = PDO::FETCH_ASSOC)
+	{
+		$sth = $this->prepare($sql);
+		
+		$sth->execute($param);
 		return $sth->fetchAll($fetchMode);
 	}
 	//$sql = "select * from usuario WHERE id = :id"; $array = array('id'=>$id);
@@ -50,7 +67,6 @@ Class Database extends PDO
 	*/
 	public function update($table,$data,$where)
 	{
-
 		ksort($data);
 		$fieldDetails = NULL;
 		foreach ($data as $key => $values)
@@ -78,6 +94,6 @@ Class Database extends PDO
 		$sth = $this->prepare("DELETE FROM $table WHERE $where");
 		$sth->bindValue(":$key",$dato);
 		return $sth->execute();
-	}
+	}	
 }
 ?>

@@ -20,6 +20,11 @@ class User_model extends Model {
         return $this->db->select("SELECT * FROM usuario WHERE mail = :mail", $data);
     }
 
+    function updateImagen($imagen, $tipoimagen)
+    {
+        return $this->db->addcslashes("UPDATE usuario SET imagen = :imagen WHERE tipoimagen = :tipoimagen");
+    }
+
     function update($data) {
 
         return $this->db->update('usuario', $data, "idUsuario = :idUsuario");
@@ -27,7 +32,7 @@ class User_model extends Model {
     }
 
     function delete($idUsuario) {
-        $this->db->delete('usuario', 'idUsuario = :idUsuario', 'idUsuario', $idUsuario);
+        return $this->db->delete('usuario', 'idUsuario = :idUsuario', 'idUsuario', $idUsuario);
     }
 
 }

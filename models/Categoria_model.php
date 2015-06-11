@@ -13,6 +13,10 @@
 		{
 			return $this->db->select("SELECT * FROM categoria WHERE nombre = :nombre",$data);
 		}
+		function buscarid($data)
+		{
+			return $this->db->select("SELECT * FROM categoria WHERE idCategoria = :idCategoria",$data);
+		}
 		function padres($data)
 		{
 			return $this->db->select("SELECT * FROM categoria WHERE idPadre = :idPadre",$data);

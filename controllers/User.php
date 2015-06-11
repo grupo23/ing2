@@ -12,6 +12,9 @@ class User extends Controller
             isset($_POST["nomyap"]) && isset($_POST["dni"]) &&
             isset($_POST["direccion"]) && isset($_POST["telefono"]))
         {
+            $response = $this->model->signIn( array(':mail' => $_POST["mail"]) );
+            if(!isset($response[0]))
+            {
             $data["mail"] = $_POST["mail"];
             $data["password"] = $_POST["password"];
             $data["nomyap"] = $_POST["nomyap"];
@@ -23,6 +26,12 @@ class User extends Controller
             echo $this->model->signUp($data);
             ?><script> alert("registro Exitoso");
             document.location = "<?php echo URL; ?>";</script><?php
+            }
+            else
+            {
+                ?><script> alert("correo ya registrado, intente con otro");
+            document.location = "<?php echo URL; ?>";</script><?php
+            }
         }
         else
         {
@@ -78,7 +87,17 @@ class User extends Controller
             }
         }
     }
-    function validar($mail) {
+
+    //public function updateImagen() 
+    
+    //    $response = $this->model->updateImagen($_FILES['imagen']['tipoimagen']);
+      //  if($response[0]){
+      /*  ?><script> alert("El archivo se ha subido correctamente");</script><?php
+       }
+    }*/
+
+
+    public function validar($mail) {
      ?><script> var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
       return regex.test($mail); </script><?php
      }
@@ -91,9 +110,9 @@ class User extends Controller
             isset($_POST["nomyap"]) && isset($_POST["dni"]) &&
             isset($_POST["direccion"]) && isset($_POST["telefono"]))
             {
-            $data["mail"] = $_POST["mail"];
-             if(validar($_POST["mail"]))
-             {
+             $data["mail"] = $_POST["mail"];
+             //if(validar($_POST["mail"]))
+             //{
               $data["idUsuario"] = $_POST["idUsuario"];
               $data["password"] = $_POST["password"];
               $data["nomyap"] = $_POST["nomyap"];
@@ -102,14 +121,13 @@ class User extends Controller
               $data["telefono"] = $_POST["telefono"];
               $this->model->update($data);
              ?><script> document.location = "<?php echo URL; ?>";</script><?php
-         }
+         //}
         }
     }
-    
 
     public function delete()
     {
-        print($_POST["idUsuario"]);
+
 
         if(isset($_POST["idUsuario"])){
             $response = $this->model->delete($_POST["idUsuario"] );
