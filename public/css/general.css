@@ -22,59 +22,10 @@ body
 	padding-left:0;
 	border-style:none;
 	height:100%;
-
-}
-
-#container 
-{
-  min-height: 650px;
-}
-#buttonBuscar
-{
-	width: 100px;
-}
-.barrabusqueda
-{
-	width:300px;}
-.bloqueCategorias
-{
-	float: left;
-	position: absolute;
-	width:200px;
-
-
-	left:25px;
-	top:200px;
-}
-.subastas
-{
-	float: left;
-	position: absolute;
-	background-color:#888;
-	left:250px;
-	top:200px;
-	width: 700px;
-	height:400px;/*quitar cuando aya elementos*/
-}
-.regylog
-{
-	float: right;
-	position: absolute;
-	left:1175px;
-	right: 50px;
-	top: 200px;
-}
-.modificaryeliminar
-{
-
-	position: absolute;
-	left:1100px;
-	right: 50px;
-	top: 0px;
 }
 .cabecera
 {
-	position: absolute;
+	position: relative;
 	top: 45px;
 	height:100px;
 	width:100%;
@@ -82,26 +33,11 @@ body
 	box-shadow: 0px 8px 8px rgba(0,0,0,0.5); 
 	border: 1px solid black;
 }
-.pie
-{
-	position:relative;
-
-	bottom: 0px;
-	height:70px;
-	width:100%;
-	background-color:#E81614;
-	box-shadow: 0px -8px 8px rgba(0,0,0,0.5); 
-	border: 1px solid black;
-
-
-  margin-top:-40px;
-
-}
 .logosubasta
 {
 	position: absolute;
 	top:-65px;
-	left:200px;
+	left:100px;
 	float: left;
 	width: 235px; height: 194px;
 }
@@ -109,45 +45,174 @@ body
 {
 	position: absolute;
 	top:0px;
-	left:400px;
+	left:250px;
 	float: left;
 }
-.correo
+.admin
 {
-	float: right;
 	position: absolute;
-	top:13px;
-	right: 220px;
-	color:#000;
-	display:block;
-	border-radius: 15px;
-	font-size:150%;
-	font-weight: bold;
-	height: 35px;
-	
+	top:30px;
+	left:930px;
+	float: left;
 }
-#closeSessionBtn
+.registrarse
 {
-	float: right;
 	position: absolute;
-	top:5px;
-	right: 50px;
+	top:30px;
+	left:860px;
+	float: left;
+}
+.estadoProducto
+{
+	color: blue;
+	font-style: italic;
+	font-family: Georgia, serif;
+	font-size: 28px;
+	letter-spacing: 0;
+	text-shadow: -1px -1px 1px #000, 1px -1px 1px #000, -1px 1px 1px #000, 1px 1px 1px #000;
+}
+.servicios
+{
+	position: absolute;
+	top:40px;
+	right: 430px;
+	float: right;
+	color: #7da400;
+font-style: italic;
+font-family: Georgia, serif;
+font-size: 28px;
+letter-spacing: 0;
+text-shadow: -1px -1px 1px #fff, 1px -1px 1px #fff, -1px 1px 1px #fff, 1px 1px 1px #fff;
+}
+.contactoUsuario
+{
+	position: absolute;
+	top:32px;
+	right: 230px;
+	float: right;
+}
+.contactoPublico
+{
+	position: absolute;
+	top:32px;
+	right: 490px;
+	float: right;
+}
+.conectarse
+{
+	position: absolute;
+	top:32px;
+	left:1030px;
+	float: left;
+}
+.salir
+{
+	position: absolute;
+	top:32px;
+	left:1120px;
+	float: left;
+}
+.ayuda
+{
+	position: absolute;
+	top:30px;
+	left:1200px;
+	float: left;
+}
+.pie
+{
+	position:relative;
+	bottom: 0px;
+	height:40px;
+	width:100%;
+	background-color:#E81614;
+	box-shadow: 0px -8px 8px rgba(0,0,0,0.5); 
+	border: 1px solid black;
+	margin-top:-40px;
+	text-align: center;
+	color:#fff;
+}
+#contenedor
+{
+	min-height: 650px;
+}
+.bloqueCategorias
+{
+	float: left;
+	position: absolute;
+	width:250px;
+	left:25px;
+	top:200px;
+}
+.imagenProducto , .imagenimagen
+{
+	max-width: 200px;
+	max-height: 200px;
+}
+.prod
+{
+	position: relative;
+	display:table-cell;
+}
+.espacio
+{
+	width: 35px;
+	display:table-cell;
+}
+.subastas
+{
+	float: left;
+	position: relative;
+	left:300px;
+	top:15px;
+	width: 1000px;
+    height: 650px;
+    overflow: scroll;
+}
+.formWrapper
+{
+	margin-top:15%;
+	width: 200px;
+	margin: 0 auto;
+}
+.formTitle
+{
 	color:#50361b;
-	display:block;
-	border-radius: 15px;
-	font-size:150%;
 	font-weight: bold;
-	width: 150px;
-	height: 35px;
+	font-size: 180%;
+	text-align:center;
 }
-.recuadro
+.recuadro /*formato del input*/
 {
 	display:block;
 	padding:10px;
 	width:100%;
 	border-radius: 15px;
 }
-.signInBtn, .signUpBtn, .botonactualizar, .botondardebaja, .recoveryPassBtn
+#barrabusqueda
+{
+	position: absolute;
+	display:block;
+	top:0px;
+	left:35px;
+	padding:5px;
+	width:500px;
+	border-radius: 15px;
+}
+#botonbusqueda
+{
+	position: absolute;
+	display:block;
+	padding:5px;
+	border-radius: 15px;
+	width:100px;
+	color:#50361b;
+	font-weight: bold;
+	top:0px;
+	left:560px;
+	float: left;
+}
+.signInBtn /*formato del boton*/
 {
 	display:block;
 	padding:10px;
@@ -157,56 +222,77 @@ body
 	font-size:150%;
 	font-weight: bold;
 }
-.formWrapper
-{
-	margin-top:15%;
-	float:right;
-	width: 200px;
-}
-.formTitle
-{
-	color:#50361b;
-	font-weight: bold;
-	font-size: 180%;
-	text-align:center;
-}
 .smallText
 {
 	font-size:150%;
 	margin:8px 0px;
 }
+.button
+{
+	text-decoration: none;
+	display:block;
+	text-align: center;
+	padding:10px;
+	color:#50361b;
+}
 .smallText span
 {
 	display:block;
 	text-align: center;
+	width:112%;
 }
-a, a:hover, a:active, .smallText .button
+.datosprod
 {
-	text-decoration: none;
+	position: relative;
+	float: left;
+	left: 350px;
+	top:50px;
+}
+
+.descrip
+{
+	position: relative;
+	float: left;
+	left: 450px;
+	top:50px;
+}
+.ofer
+{
+	margin:0 auto;
+	width: 400px;
+}
+.botonofertando
+{
+	display:block;
+	padding:10px;
+	border-radius: 15px;
+	width:106%;
 	color:#50361b;
+	font-size:150%;
 	font-weight: bold;
 }
-.smallText .button
+.adminopciones
 {
-	display: inline;
-	cursor: pointer;
+	margin:0 auto;
+	width: 400px;
 }
-.hidden
+.error
 {
-	display: none;
-}
-.fancyForm: button{
-    padding: 10px;
-    display:block;
-    width: 108%;
+	position: absolute;
+	float: left;
+	max-height: 500px;
+	top:250px;
+	left:50px;
+	
 }
 .tablagen
 {
 	position: relative;
-    display:table;
-    left:50px;
+    left:400px;
     top: 50px;
-    min-height: 450px;
+    width: 500px;
+    height: 500px;
+    overflow: scroll;
 }
 .tablagen2
 {
@@ -225,5 +311,241 @@ a, a:hover, a:active, .smallText .button
     padding:12px;
     background:#ddd;
 }
+.col
+{
+	display:table-cell;
+}
+.agregarpadreysub
+{
+	position: relative;
+	left:400px;
+	width: 500px;
+    
+}
+.adm
+{
+	position: absolute;
+	top: 200px;
+	left: 50px;
+}
+.containerUsers
+{
+    position: relative;
+    width: 82%;
+    left:400px;
+    overflow: auto;
+    height:95%;
+}
+.opciones
+{
+	position: relative;
+	float: left;
+	left: 50px;
+	top:50px;
+}
+.cambioporcentaje
+{
+	position: absolute;
+	top:250px;
+	left:400px;
+}
+.fechasUsers 
+{
+	position: relative;
+	left:400px;
+}
+.razonganador
+{
+	border: 1px;
+}
+.wrapper
+{
+	margin-top:15%;
+	width: 650px;
+	margin: 0 auto;
+}
+.responder
+{
+	margin:0 auto;
+	width: 400px;
+}
+.pregunta
+{
+	margin:0 auto;
+	width: 400px;
+}
+.mostrarpregunta
+{
+	color:#50361b;
+	font-weight: bold;
+	font-size: 180%;
+	text-align:center;
+}
+.tablaDatosTargeta
+{
+	position: relative;
+	top:100px;
+	left:150px;
+}
+.textotargeta
+{
+	width: 200px;
+}
+.imagenCuadradoVenta
+{
+	max-width: 197px;
+	max-height: 197px;
+	
+	display: block;
+}
+.espacioDeVenta
+{
+	
+	
+	width: 100px;
+	display:table-cell;
+}
 
+.cajaVenta
+{
+	position: relative;
+	width: 400px;
+	height:400px;
 
+	
+}
+.filaVenta
+{
+	position: relative;
+	width: 400px;
+	display: table-row;
+}
+.cuadradoVenta
+{
+	position: relative;
+	width:200px;
+	height: 200px;
+	display:table-cell;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 115%;
+
+	
+}
+.containerHistorialVentas
+{
+    display: table; 
+}
+.conthisven
+{
+	float: left;
+	position: relative;
+	left:350px;
+	top:5px;
+	width: 830px;
+    height: 630px;
+    overflow: auto;
+}
+.ventasconcretadas
+{
+	float: left;
+	position: relative;
+	left:350px;
+	top:5px;
+	width: 830px;
+    height: 550px;
+    overflow: auto;
+}
+.containerHistorialVentasConSusGanancias
+{   
+	display: table; 
+}
+.informeParaAdministrador
+{
+    display: table;
+    margin: 0 auto; 
+}
+.containerProductos
+{
+	 position: relative;
+     width: 85%;
+     left:380px;
+     overflow: auto;
+     height:95%;
+
+}
+.tablacontacto
+{
+	position: relative;
+	left:150px;
+	top:100px;
+}
+.espacio
+{
+	height: 25px;
+}
+.mensaje
+{
+	width: 200px;
+	height: 50px;
+}
+.preguntasugerencia
+{
+	position: relative;
+	top:50px;
+	width: 400px;
+	margin: 0 auto;
+}
+.contenedorAyuda
+{
+	position: absolute;
+	left: 350px;
+	top: 250px;
+	margin: 0 auto;
+}
+.contenedorimagenayuda
+{
+	max-width: 900px;
+}
+.contenedorHelp
+{
+	float: left;
+	position: absolute;
+	left:350px;
+	top:200px;
+	width: 806px;
+    height: 655px;
+    font-size: 120%;
+   
+}
+.contenedorHelp2
+{
+	float: left;
+	position: absolute;
+	left:350px;
+	top:230px;
+	width: 800px;
+    height: 655px;
+    font-size: 120%;
+   
+}
+.contenedorHelp3
+{
+	float: left;
+	position: absolute;
+	left:350px;
+	top:200px;
+	width: 750px;
+    height: 655px;
+    font-size: 120%;
+   
+}
+.notificaciones
+{
+	position: absolute;
+	left: 730px;
+	top: 30px;
+	height: 50px;
+}
